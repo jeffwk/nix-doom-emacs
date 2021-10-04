@@ -108,11 +108,11 @@ let
         emacsPackages =
           if bundledPackages then
             let
-              epkgs = emacs-overlay.emacsPackagesFor emacsPackages.emacs;
+              epkgs = emacs-overlay.emacsPackagesFor emacs-overlay.emacsPgtkGcc;
             in epkgs.overrideScope' overrides
           else
             emacsPackages.overrideScope' overrides;
-        emacs = emacsPackages.emacsWithPackages extraPackages;
+        emacs = (pkgs.emacsPackagesNgGen emacs-overlay.emacsPgtkGcc).emacsWithPackages extraPackages;
         emacsLoadFiles = [ ./advice.el ];
         emacsArgs = [
           "--"
